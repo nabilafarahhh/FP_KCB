@@ -3,9 +3,3 @@ scikit-learn
 pandas
 numpy
 matplotlib
-
-streamlit
-scikit-learn
-pandas
-numpy
-matplotlib
