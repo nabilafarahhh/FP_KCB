@@ -64,7 +64,7 @@ with st.container():
     """, unsafe_allow_html=True)
 
     #data loading&preprocessing
-    df = pd.read_csv("data without infertility _final.csv")
+    df = pd.read_csv("data_without_infertility_final.csv")
     features = ['Follicle No. (R)', 'AMH(ng/mL)', 'BMI', 'Weight (Kg)', 'Cycle length(days)']
     label = 'PCOS (Y/N)'
 
