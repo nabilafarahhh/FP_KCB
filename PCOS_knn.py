@@ -12,7 +12,7 @@ st.set_page_config(page_title="Prediksi PCOS", layout="centered")
 st.markdown("""
     <style>
         .block-container {
-            background-color: ##fafcfd;
+            background-color: #fafcfd;
             padding: 3rem;
             border-radius: 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
@@ -34,7 +34,6 @@ st.markdown("""
         .header p {
             font-size: 1rem;
             opacity: 0.9;
-            margin-top:
         }
         .stButton>button {
             background-color: #007bff;
@@ -100,7 +99,8 @@ with st.container():
     col1, col2 = st.columns(2)
     for i, col in enumerate(features):
         label_text = label_mapping.get(col, col)
-        with (col1 if i % 2 == 0 else col2):
+        target_col = col1 if i % 2 == 0 else col2
+        with target_col:
             val = st.number_input(label_text, step=0.1, format="%.2f")
             input_data.append(val)
 
