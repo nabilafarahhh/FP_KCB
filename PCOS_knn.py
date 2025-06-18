@@ -9,8 +9,6 @@ from imblearn.over_sampling import SMOTE
 import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="Prediksi PCOS", layout="centered")
-
-# CSS styling
 st.markdown("""
     <style>
         .block-container {
@@ -56,7 +54,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Header
 st.markdown("""
     <div class='header'>
         <h1>🔬 Prediksi Penyakit PCOS</h1>
@@ -82,7 +79,6 @@ for col in features:
     df[col] = pd.to_numeric(df[col], errors='coerce')
 df = df.dropna(subset=features + [label])
 
-# Pastikan label dalam bentuk numerik
 if df[label].dtype == object:
     df[label] = df[label].map({'Y': 1, 'N': 0})
 else:
@@ -95,16 +91,16 @@ y = df[label]
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# SMOTE untuk penyeimbangan kelas
+#SMOTE menyeimbangkan kelas
 sm = SMOTE(random_state=42)
 X_resampled, y_resampled = sm.fit_resample(X_scaled, y)
 
 # Split data setelah SMOTE
-k = 6  # Sesuai jurnal
+k = 6
 X_train, X_test, y_train, y_test = train_test_split(
     X_resampled, y_resampled, test_size=0.2, random_state=42, stratify=y_resampled)
 
-# Train model
+#train
 model = KNeighborsClassifier(n_neighbors=k)
 model.fit(X_train, y_train)
 
@@ -112,7 +108,6 @@ model.fit(X_train, y_train)
 acc = accuracy_score(y_test, model.predict(X_test))
 st.info(f"🎯 Akurasi model pada data uji (K={k} dengan SMOTE): **{acc*100:.2f}%**")
 
-# Input form
 st.markdown("### 📋 Masukkan Data Pemeriksaan")
 input_data = []
 col1, col2 = st.columns(2)
@@ -136,7 +131,6 @@ if st.button("🔍 PREDIKSI SEKARANG"):
         else:
             st.markdown(f"<div class='result-box' style='background-color:#e6ffec; color:#007e33;'>✅ Hasil: Tidak Terindikasi PCOS</div>", unsafe_allow_html=True)
 
-        # Visual pie chart
         fig, ax = plt.subplots()
         labels = ["PCOS", "Tidak PCOS"]
         sizes = [1, 0] if prediction == 1 else [0, 1]
@@ -145,7 +139,6 @@ if st.button("🔍 PREDIKSI SEKARANG"):
         ax.axis("equal")
         st.pyplot(fig)
 
-# Footer
 st.markdown("""
     <hr style="margin-top:3rem;">
     <div style='text-align:center; font-size:0.85rem; color:gray;'>
